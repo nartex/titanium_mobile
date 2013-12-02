@@ -920,19 +920,21 @@ public class TiUIHelper
 	 */
 	public static void showSoftKeyboard(View view, boolean show) 
 	{
-		InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
+		if (view != null){
+			InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
 
-		if (imm != null) {
-			boolean useForce = (Build.VERSION.SDK_INT <= Build.VERSION_CODES.DONUT || Build.VERSION.SDK_INT >= 8) ? true : false;
-			String model = TiPlatformHelper.getModel(); 
-			if (model != null && model.toLowerCase().startsWith("droid")) {
-				useForce = true;
-			}
+			if (imm != null) {
+				boolean useForce = (Build.VERSION.SDK_INT <= Build.VERSION_CODES.DONUT || Build.VERSION.SDK_INT >= 8) ? true : false;
+				String model = TiPlatformHelper.getModel(); 
+				if (model != null && model.toLowerCase().startsWith("droid")) {
+					useForce = true;
+				}
 			
-			if (show) {
-				imm.showSoftInput(view, useForce ? InputMethodManager.SHOW_FORCED : InputMethodManager.SHOW_IMPLICIT);
-			} else {
-				imm.hideSoftInputFromWindow(view.getWindowToken(), useForce ? 0 : InputMethodManager.HIDE_IMPLICIT_ONLY);
+				if (show) {
+					imm.showSoftInput(view, useForce ? InputMethodManager.SHOW_FORCED : InputMethodManager.SHOW_IMPLICIT);
+				} else {
+					imm.hideSoftInputFromWindow(view.getWindowToken(), useForce ? 0 : InputMethodManager.HIDE_IMPLICIT_ONLY);
+				}
 			}
 		}
 	}
